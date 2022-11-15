@@ -1,23 +1,23 @@
 import logo from './logo.svg';
 import './App.css';
+import ImageBox from './exam1/ImageBox';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import TodoList from './exam2/TodoList';
+import UserList from './exam2/UserList';
 
 function App() {
+  const url = "https://dog.ceo/api/breeds/image/random";
+  const [title, setTitle] = useState('')
+  const [image, setImage] = useState('');
+  useEffect(() => {
+    axios.get(url).then(response => { setTitle(response.data.message); setImage(response.data.message) })
+  }, [])
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <ImageBox imageUrl={image} imageTitle={title} />
+      <UserList />
+      <TodoList />
     </div>
   );
 }
